@@ -7,6 +7,8 @@
 //
 
 struct Answer {
+    
     var text: String
-    var point: Int //max 15 points in 10 questions
+    var point: Int //maximum 15 points in 10 questions
+    
 }
