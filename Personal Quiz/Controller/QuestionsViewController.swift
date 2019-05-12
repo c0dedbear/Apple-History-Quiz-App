@@ -14,6 +14,7 @@ class QuestionsViewController: UIViewController {
     private var userPoints = 0
     private var currentQuestionIndex = 0
     
+    
     //MARK: - OUTLETS
     
     //main stackViews
@@ -239,12 +240,13 @@ extension QuestionsViewController {
         }
     }
     
-    // MARK: - Navigation
+    // MARK: - Transfer Results
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let resultsVC = segue.destination as? ResultsViewController {
             resultsVC.result = interpretateResults(in: quiz, with: userPoints)
+            resultsVC.userPoints = (userPoints, defineMaxPossiblePoints(in: quiz))
         }
         
     }

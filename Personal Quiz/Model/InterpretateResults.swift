@@ -6,7 +6,17 @@
 //  Copyright © 2019 Mikhail Medvedev. All rights reserved.
 //
 
-import Foundation
+func defineMaxPossiblePoints(in quiz: [Question]) -> Int {
+    var points = 0
+    for question in quiz {
+        for answer in question.answers {
+            if answer.point != 0 {
+                points += answer.point
+            }
+        }
+    }
+    return points
+}
 
 func interpretateResults(in quiz: [Question], with points: Int) -> [Character:String] {
     
@@ -29,3 +39,5 @@ func interpretateResults(in quiz: [Question], with points: Int) -> [Character:St
     
     return ["🤖":"Error!"]
 }
+
+
