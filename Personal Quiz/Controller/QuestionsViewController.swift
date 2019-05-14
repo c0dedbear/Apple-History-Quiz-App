@@ -10,9 +10,11 @@ import UIKit
 
 class QuestionsViewController: UIViewController {
     
+
+    //MARK: Properties
     private var quiz = Question.loadData()
-    private var userPoints = 0
     private var currentQuestionIndex = 0
+    private var userPoints = 0
     
     
     //MARK: - OUTLETS
@@ -58,8 +60,7 @@ extension QuestionsViewController {
                     userPoints += answer.point
                 }
             }
-            break
-            
+
         case .selectRightAnswers:
             
             //define switchers
@@ -75,7 +76,6 @@ extension QuestionsViewController {
                     }
                 }
             }
-            break
             
         case .slideToAnswer:
             for answer in currentQuestion.answers {
@@ -104,7 +104,10 @@ extension QuestionsViewController {
             return
         }
         
+        //define stacksview
         let stackViews = [chooseOnlyOneRightAnswerStackView, tapImageToAnswerStackView, slideToAnswerStackView,selectRightAnswersStackView]
+        
+        //define current question
         let currentQuestion = quiz[currentQuestionIndex]
         
         switch currentQuestion.type {
@@ -126,8 +129,6 @@ extension QuestionsViewController {
             
             hideStackViews(in: stackViews, except: chooseOnlyOneRightAnswerStackView)
             navigationItem.title = "Выберите один из вариантов:"
-            
-            break
             
         case .selectRightAnswers:
             
@@ -157,8 +158,6 @@ extension QuestionsViewController {
             hideStackViews(in: stackViews, except: selectRightAnswersStackView)
             navigationItem.title = "Отметьте верные варианты:"
             
-            break
-            
         case .slideToAnswer:
             //MARK: setup view in slideToAnswerStackView
             let questionLabel = slideToAnswerStackView.arrangedSubviews[0] as! UILabel
@@ -173,7 +172,6 @@ extension QuestionsViewController {
             
             hideStackViews(in: stackViews, except: slideToAnswerStackView)
             navigationItem.title = "Передвигайте ползунок:"
-            break
             
         case .tapImageToAnswer:
             //MARK: setup view in tapImageToAnswerStackView
@@ -195,7 +193,7 @@ extension QuestionsViewController {
             
             hideStackViews(in: stackViews, except: tapImageToAnswerStackView)
             navigationItem.title = "Нажмите на изображение"
-            break
+
         }
         
         //MARK: Progress Bar Settings
