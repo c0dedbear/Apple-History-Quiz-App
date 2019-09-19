@@ -19,26 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="ax1-Xi-ZVw">
-                                <rect key="frame" x="20" y="40" width="203" height="492"/>
+                                <rect key="frame" x="20" y="40" width="280" height="508"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_logo_PNG19688" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-8c-Dnb">
-                                        <rect key="frame" x="0.0" y="0.0" width="203" height="230"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="238"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="203" id="P6R-LS-Gtj"/>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="153" id="i5t-Qd-aF1"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="iaf-eE-9Iv">
-                                        <rect key="frame" x="0.0" y="262" width="203" height="230"/>
+                                        <rect key="frame" x="0.0" y="270" width="280" height="238"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Хорошо ли вы знаете историю Apple?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="P8m-c5-Ct2">
-                                                <rect key="frame" x="0.0" y="0.0" width="203" height="143.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="107.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="636-z7-RZB">
-                                                <rect key="frame" x="0.0" y="175.5" width="203" height="54.5"/>
+                                                <rect key="frame" x="0.0" y="139.5" width="280" height="98.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Проверить"/>
                                                 <connections>
@@ -328,7 +328,7 @@
                                                 <rect key="frame" x="0.0" y="105.5" width="280" height="73"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="first logo" translatesAutoresizingMaskIntoConstraints="NO" id="MCJ-JM-24J">
-                                                <rect key="frame" x="0.0" y="210.5" width="280.00000000000006" height="73.5"/>
+                                                <rect key="frame" x="0.0" y="210.5" width="280" height="73.5"/>
                                             </imageView>
                                         </subviews>
                                         <variation key="heightClass=compact" axis="horizontal"/>

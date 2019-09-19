@@ -12,10 +12,6 @@ import UIKit
 
 func hideStackViews(in stackViews: [UIStackView?], except stackView: UIStackView) {
     
-//    for item in stackViews {
-//        item!.isHidden = stackView != item
-//    }
-    
     for item in stackViews {
         if item == stackView {
             item?.showAnimated()
