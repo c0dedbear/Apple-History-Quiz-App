@@ -6,7 +6,7 @@
 //  Copyright © 2019 Mikhail Medvedev. All rights reserved.
 //
 
-enum ResponseType: String {
+enum Type: String, Codable {
     case chooseOnlyOneRightAnswer = "Выберите правильный ответ"
     case selectRightAnswers = "Отметьте верные утверждения"
     case tapImageToAnswer = "Нажмите на картинку"

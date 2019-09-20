@@ -9,19 +9,21 @@
 import UIKit
 
 //MARK: Hide StackViews
-
-func hideStackViews(in stackViews: [UIStackView?], except stackView: UIStackView) {
-    
-    for item in stackViews {
-        if item == stackView {
-            item?.showAnimated()
-        } else {
-            item?.hideAnimated()
-        }
+extension QuestionsViewController {
+    func hideStackViews(in stackViews: [UIStackView?], except stackView: UIStackView) {
         
+        for item in stackViews {
+            if item == stackView {
+                item?.showAnimated()
+            } else {
+                item?.hideAnimated()
+            }
+            
+        }
     }
 }
 
+//MARK: Animation
 extension UIView {
     
     func hideAnimated() {
@@ -40,7 +42,7 @@ extension UIView {
             )
         }
     }
-
+    
     func showAnimated() {
         if self.isHidden {
             UIView.animate(
@@ -55,7 +57,7 @@ extension UIView {
             },
                 completion: nil
             )
-
+            
         }
     }
 }

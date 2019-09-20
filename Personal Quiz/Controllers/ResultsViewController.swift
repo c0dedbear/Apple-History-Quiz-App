@@ -27,5 +27,7 @@ class ResultsViewController: UIViewController {
             descriptionLabel.text = description
         }
     }
+    
+    //TODO: Make network request for interpretate quiz results
 
 }

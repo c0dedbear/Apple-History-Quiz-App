@@ -6,9 +6,8 @@
 //  Copyright © 2019 Mikhail Medvedev. All rights reserved.
 //
 
-struct Answer {
-    
+struct Answer: Codable, Hashable {
     var text: String
-    var point: Int //maximum 15 points in 10 questions
-    
+    var point: Int
+    var questionId: Int
 }
