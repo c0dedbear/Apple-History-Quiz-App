@@ -6,34 +6,34 @@
 //  Copyright © 2019 Denis Bystruev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class NetworkController {
     
     private let jsonDataFetcher: JSONDataFetchable
     private let jsonDataSender: JSONDataSendable
+    private let imageFetcher: ImageFetcher
     
-    init(jsonDataFetcher: JSONDataFetchable = JSONDataFetcher(), jsonDataSender: JSONDataSendable = JSONDataSender()) {
+    init(
+        jsonDataFetcher: JSONDataFetchable = JSONDataFetcher(),
+        jsonDataSender: JSONDataSendable = JSONDataSender(),
+        imageFetcher: ImageFetcher = ImageFetcher()
+        ) {
         self.jsonDataFetcher = jsonDataFetcher
         self.jsonDataSender = jsonDataSender
+        self.imageFetcher = imageFetcher
     }
     
-//    private func makeURL() -> URL? {
-//        var parameters = [String:String]()
-//        parameters["page"] = String(page)
-//        parameters["per_page"] = "12"
-//        parameters["order_by"] = "latest"
-//
-//        var components = URLComponents()
-//        components.scheme = "http"
-//        components.host = "localhost"
-//        components.port = 8080
-//        components.path = "/photos"
-//        components.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-//
-//        return components.url
-//
-//    }
+     func makeURL() -> URL? {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "localhost"
+        components.port = 8080
+        components.path = "/api/v1"
+        
+        return components.url
+    }
     
 //    private func makeHeaders() -> [String:String]? {
 //        var headers = [String:String]()
@@ -41,9 +41,30 @@ class NetworkController {
 //        return headers
 //    }
     
-//    func fetchPicturesInfo(page: Int,completion: @escaping ([Picture]?) -> Void) {
-//        guard let url = makeURL(with: page) else { return }
-//        jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: makeHeaders(), response: completion)
-//    }
+    func getQuestions(completion: @escaping ([Question]?) -> Void) {
+        guard let baseUrl = makeURL() else { return }
+        let url = baseUrl.appendingPathComponent("questions")
+        print(url)
+        jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
+    }
+    
+    func getAnswers(completion: @escaping ([Answer]?) -> Void) {
+        guard let baseUrl = makeURL() else { return }
+        let url = baseUrl.appendingPathComponent("answers")
+        print(url)
+        jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
+    }
+    
+    
+    func getTypes(completion: @escaping ([Type]?) -> Void) {
+        guard let baseUrl = makeURL() else { return }
+        let url = baseUrl.appendingPathComponent("types")
+        print(url)
+        jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
+    }
+    
+    func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
+        imageFetcher.fetchImage(url: url, response: completion)
+    }
     
 }

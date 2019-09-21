@@ -11,8 +11,12 @@ import UIKit
 class QuestionsViewController: UIViewController {
     //MARK: Stored Properties
     private var quiz = [Question]()
+    private var types: [Type]?
     private var currentQuestionIndex = 0
     private var userPoints = 0
+    //Dependencies
+    private let networkController = NetworkController()
+    private let storageController = StorageController()
     
     //MARK: Outlets
     //main stackViews
@@ -33,8 +37,10 @@ class QuestionsViewController: UIViewController {
     //MARK: VC Life cycyle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        showNextQuestion()
+        getQuizFromNetwork()
+       // showNextQuestion()
     }
+    
     
     //MARK: IBAction methods
     
@@ -52,15 +58,16 @@ class QuestionsViewController: UIViewController {
         
         ///CALCULATE POINTS
         let currentQuestion = quiz[currentQuestionIndex]
+        guard let currentQuestionType = currentQuestion.type else { return }
         
-        switch currentQuestion.type {
-        case .chooseOnlyOneRightAnswer:
-            for answer in currentQuestion.answers {
+        switch currentQuestionType.name {
+        case "chooseOnlyOneRightAnswer":
+            for answer in currentQuestion.answers! {
                 if answer.text == sender.currentTitle {
                     userPoints += answer.point
                 }
             }
-        case .selectRightAnswers:
+        case "selectRightAnswers":
             
             ///define switchers
             let subStackView = selectRightAnswersStackView.arrangedSubviews[1] as! UIStackView
@@ -69,20 +76,22 @@ class QuestionsViewController: UIViewController {
                 
                 let subViewObject = subStackView.arrangedSubviews[index] as! UIStackView
                 let switchLabel = subViewObject.arrangedSubviews[1] as! UISwitch
-                if currentQuestion.answers[index].point == 1 {
+                if currentQuestion.answers![index].point == 1 {
                     if switchLabel.isOn {
                         userPoints += 1
                     }
                 }
             }
-        case .slideToAnswer:
-            for answer in currentQuestion.answers {
+        case "slideToAnswer":
+            for answer in currentQuestion.answers! {
                 if labelOfSlider.text == answer.text {
                     userPoints += answer.point
                 }
             }
             
-        case .tapImageToAnswer: break
+        case "tapImageToAnswer": break
+        default: break
+            
         }
         
         currentQuestionIndex += 1
@@ -90,10 +99,11 @@ class QuestionsViewController: UIViewController {
     }
 }
 
-// MARK: - Setup View
+// MARK: - Setup View and Logic
 extension QuestionsViewController {
     /// Controls Labels and Answers
     private func showNextQuestion() {
+
         guard currentQuestionIndex < quiz.count else {
             //Perform Segue in the end of quiz
             performSegue(withIdentifier: "ResultsSegue", sender: self)
@@ -105,9 +115,12 @@ extension QuestionsViewController {
         
         //define current question
         let currentQuestion = quiz[currentQuestionIndex]
+        print(currentQuestion)
         
-        switch currentQuestion.type {
-        case .chooseOnlyOneRightAnswer:
+         guard let currentQuestionType = currentQuestion.type else { return }
+        
+        switch currentQuestionType.name {
+        case "chooseOnlyOneRightAnswer":
             //setup view in chooseOnlyOneRightAnswerStackView
             let questionLabel = chooseOnlyOneRightAnswerStackView.arrangedSubviews[0] as! UILabel
             questionLabel.text = currentQuestion.text
@@ -119,14 +132,13 @@ extension QuestionsViewController {
             //Set titles for answers
             for itemIndex in 0..<subStackViewItems.count {
                 let button = subStackViewItems[itemIndex] as! UIButton
-                button.setTitle(currentQuestion.answers[itemIndex].text, for: .normal)
+                button.setTitle(currentQuestion.answers![itemIndex].text, for: .normal)
             }
             
             hideStackViews(in: stackViews, except: chooseOnlyOneRightAnswerStackView)
-            navigationItem.title = "Выберите один из вариантов:"
+            navigationItem.title = currentQuestionType.description
             
-        case .selectRightAnswers:
-            
+        case "selectRightAnswers":
             //setup view in selectRightAnswersStackView
             let questionLabel = selectRightAnswersStackView.arrangedSubviews[0] as! UILabel
             questionLabel.text = currentQuestion.text
@@ -138,16 +150,16 @@ extension QuestionsViewController {
                 let subViewObject = subStackView.arrangedSubviews[index] as! UIStackView
                 //setup answers to labels
                 let label = subViewObject.arrangedSubviews[0] as! UILabel
-                label.text = currentQuestion.answers[index].text
+                label.text = currentQuestion.answers![index].text
                 //setup switchers
                 let switchLabel = subViewObject.arrangedSubviews[1] as! UISwitch
                 switchLabel.isOn = false
             }
             
             hideStackViews(in: stackViews, except: selectRightAnswersStackView)
-            navigationItem.title = "Отметьте верные варианты:"
+            navigationItem.title = currentQuestionType.description
             
-        case .slideToAnswer:
+        case "slideToAnswer":
             //setup view in slideToAnswerStackView
             let questionLabel = slideToAnswerStackView.arrangedSubviews[0] as! UILabel
             questionLabel.text = currentQuestion.text
@@ -158,9 +170,9 @@ extension QuestionsViewController {
             labelOfSlider.text = "\(Int(slider.value))"
             
             hideStackViews(in: stackViews, except: slideToAnswerStackView)
-            navigationItem.title = "Передвигайте ползунок:"
+            navigationItem.title = currentQuestionType.description
             
-        case .tapImageToAnswer:
+        case "tapImageToAnswer":
             //setup view in tapImageToAnswerStackView
             let questionLabel = tapImageToAnswerStackView.arrangedSubviews[0] as! UILabel
             questionLabel.text = currentQuestion.text
@@ -171,7 +183,7 @@ extension QuestionsViewController {
                 //setup images to ImageViews
                 let imageView = imageStackView.arrangedSubviews[index] as! UIImageView
                 
-                imageView.image = UIImage(named: currentQuestion.answers[index].text)
+                imageView.image = UIImage(named: currentQuestion.answers![index].text)
                 
                 // create tap gesture recognizer
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
@@ -179,7 +191,9 @@ extension QuestionsViewController {
             }
             
             hideStackViews(in: stackViews, except: tapImageToAnswerStackView)
-            navigationItem.title = "Нажмите на изображение"
+            navigationItem.title = currentQuestionType.description
+            
+        default: break
         }
         
         //MARK: Progress Bar Settings
@@ -210,9 +224,9 @@ extension QuestionsViewController {
         
         //Calculate UserPoints
         let currentQuestion = quiz[currentQuestionIndex]
-        
+       
         if currentQuestionIndex < quiz.count {
-            for answer in currentQuestion.answers {
+            for answer in currentQuestion.answers! {
                 if image.image == UIImage(named: answer.text) && answer.point == 1 {
                     userPoints += answer.point
                 }
@@ -228,13 +242,54 @@ extension QuestionsViewController {
     func defineMaxPossiblePoints(in quiz: [Question]) -> Int {
         var points = 0
         for question in quiz {
-            for answer in question.answers {
+            for answer in question.answers! {
                 if answer.point != 0 {
                     points += answer.point
                 }
             }
         }
         return points
+    }
+}
+
+//MARK: - Fetch Quiz Data From Network
+extension QuestionsViewController {
+    func getQuizFromNetwork() {
+        var quetionsWithTypes = [Question]()
+        //fetch questions
+        networkController.getQuestions { serverQuestions in
+            guard let fetchedQuestions = serverQuestions else { return }
+            //fetch types
+            self.networkController.getTypes { serverTypes in
+                guard let fetchedTypes = serverTypes else { return }
+                //compare id's and add types to questions
+                for var question in fetchedQuestions {
+                    fetchedTypes.forEach(){ type in
+                        if question.typeId == type.id {
+                            question.type = type
+                            quetionsWithTypes.append(question)
+                        }
+                    }
+                }
+                //fetch answers
+                self.networkController.getAnswers { serverAnswers in
+                    guard let fetchedAnswers = serverAnswers else { return }
+                    for var question in quetionsWithTypes {
+                        fetchedAnswers.forEach(){ answer in
+                            if answer.questionId == question.id  {
+                                question.answers = fetchedAnswers.filter(){ $0.questionId == question.id }
+                                self.quiz.append(question)
+                            }
+                        }
+                    }
+                    //remove duplicates from Quiz
+                    self.quiz = Array(Set(self.quiz))
+                    
+                    //start Quiz
+                    self.showNextQuestion()
+                }
+            }
+        }
     }
 }
 

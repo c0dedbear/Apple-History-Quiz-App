@@ -53,5 +53,4 @@ class JSONDataFetcher: JSONDataFetchable {
             response(decodedData)
         }
     }
-
 }

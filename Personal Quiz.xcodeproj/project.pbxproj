@@ -12,6 +12,7 @@
 		B308F652228376CC006AA96B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B308F650228376CC006AA96B /* Main.storyboard */; };
 		B308F654228376CE006AA96B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B308F653228376CE006AA96B /* Assets.xcassets */; };
 		B308F657228376CE006AA96B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B308F655228376CE006AA96B /* LaunchScreen.storyboard */; };
+		B3778BDB2335280400F75520 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3778BDA2335280400F75520 /* ImageFetcher.swift */; };
 		B37C1DAF228739B500C61342 /* Hide Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C1DAE228739B500C61342 /* Hide Views.swift */; };
 		B38A92B62334D362008EBAAE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A92AF2334D362008EBAAE /* NetworkService.swift */; };
 		B38A92B72334D362008EBAAE /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A92B02334D362008EBAAE /* NetworkController.swift */; };
@@ -22,7 +23,7 @@
 		B38A92BE2334D77A008EBAAE /* StorageServicesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A92BD2334D77A008EBAAE /* StorageServicesProtocols.swift */; };
 		B38A92C02334D78F008EBAAE /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A92BF2334D78F008EBAAE /* StorageService.swift */; };
 		B3CB18342284789F0068A03F /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB18332284789F0068A03F /* Question.swift */; };
-		B3CB183622847CB60068A03F /* ResponseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB183522847CB60068A03F /* ResponseTypes.swift */; };
+		B3CB183622847CB60068A03F /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB183522847CB60068A03F /* Type.swift */; };
 		B3CB183822847D2A0068A03F /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB183722847D2A0068A03F /* Answer.swift */; };
 		B3CB183A228481010068A03F /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB1839228481010068A03F /* QuestionsViewController.swift */; };
 		B3CB183C22848F9D0068A03F /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB183B22848F9D0068A03F /* ResultsViewController.swift */; };
@@ -36,6 +37,7 @@
 		B308F653228376CE006AA96B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B308F656228376CE006AA96B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B308F658228376CE006AA96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3778BDA2335280400F75520 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		B37C1DAE228739B500C61342 /* Hide Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Views.swift"; sourceTree = "<group>"; };
 		B38A92AF2334D362008EBAAE /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B38A92B02334D362008EBAAE /* NetworkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
@@ -46,7 +48,7 @@
 		B38A92BD2334D77A008EBAAE /* StorageServicesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServicesProtocols.swift; sourceTree = "<group>"; };
 		B38A92BF2334D78F008EBAAE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		B3CB18332284789F0068A03F /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		B3CB183522847CB60068A03F /* ResponseTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTypes.swift; sourceTree = "<group>"; };
+		B3CB183522847CB60068A03F /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		B3CB183722847D2A0068A03F /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		B3CB1839228481010068A03F /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		B3CB183B22848F9D0068A03F /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
@@ -103,11 +105,12 @@
 		B38A92AE2334D362008EBAAE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				B38A92AF2334D362008EBAAE /* NetworkService.swift */,
-				B38A92B02334D362008EBAAE /* NetworkController.swift */,
 				B38A92B12334D362008EBAAE /* JSONDataFetcher.swift */,
+				B38A92B02334D362008EBAAE /* NetworkController.swift */,
 				B38A92BB2334D39E008EBAAE /* JSONDataSender.swift */,
+				B38A92AF2334D362008EBAAE /* NetworkService.swift */,
 				B38A92B22334D362008EBAAE /* NetworkServiceProtocols.swift */,
+				B3778BDA2335280400F75520 /* ImageFetcher.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -147,7 +150,7 @@
 			children = (
 				B3CB18332284789F0068A03F /* Question.swift */,
 				B3CB183722847D2A0068A03F /* Answer.swift */,
-				B3CB183522847CB60068A03F /* ResponseTypes.swift */,
+				B3CB183522847CB60068A03F /* Type.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				B38A92B72334D362008EBAAE /* NetworkController.swift in Sources */,
 				B38A92B82334D362008EBAAE /* JSONDataFetcher.swift in Sources */,
 				B38A92B62334D362008EBAAE /* NetworkService.swift in Sources */,
+				B3778BDB2335280400F75520 /* ImageFetcher.swift in Sources */,
 				B3CB18342284789F0068A03F /* Question.swift in Sources */,
 				B38A92BA2334D362008EBAAE /* StorageController.swift in Sources */,
 				B38A92C02334D78F008EBAAE /* StorageService.swift in Sources */,
@@ -244,7 +248,7 @@
 				B3CB183A228481010068A03F /* QuestionsViewController.swift in Sources */,
 				B3CB183C22848F9D0068A03F /* ResultsViewController.swift in Sources */,
 				B3CB183822847D2A0068A03F /* Answer.swift in Sources */,
-				B3CB183622847CB60068A03F /* ResponseTypes.swift in Sources */,
+				B3CB183622847CB60068A03F /* Type.swift in Sources */,
 				B37C1DAF228739B500C61342 /* Hide Views.swift in Sources */,
 				B38A92BC2334D39E008EBAAE /* JSONDataSender.swift in Sources */,
 				B38A92BE2334D77A008EBAAE /* StorageServicesProtocols.swift in Sources */,

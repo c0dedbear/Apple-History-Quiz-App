@@ -7,14 +7,11 @@
 //
 
 
-struct Question: Codable {
+struct Question: Codable, Hashable {
+    var id: Int?
+    var typeId: Int
     var text: String
-    var answers: [Answer]
-    var type: Type
+    var answers: [Answer]?
+    var type: Type?
 }
 
-extension Question: Hashable {
-    static func == (lhs: Question, rhs: Question) -> Bool {
-        return lhs.text == rhs.text && lhs.type == rhs.type
-    }
-}

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Denis Bystruev. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol NetworkRequestable {
     func request(to url: URL?, type: RequestType, headers: [String:String]?, with data: Data?, response: @escaping (Data?, Error?) -> Void)
@@ -19,6 +19,5 @@ protocol JSONDataFetchable {
 protocol JSONDataSendable {
     func sendJSONData<T: Codable>(url: URL, with requestType: RequestType, headers: [String:String]?, using model: T, response: @escaping ([String: Any]?, Error?) -> Void)
 }
-
 
 
