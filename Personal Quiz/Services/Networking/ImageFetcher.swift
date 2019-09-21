@@ -10,11 +10,17 @@ import UIKit
 
 class ImageFetcher {
     
+    let imageCache = NSCache<NSString, UIImage>()
+    
     private let networkService: NetworkRequestable
+    private let storageService: StorageService
     
     // can be initializated with other classes in future (depending of request types)
-    init(networkService: NetworkRequestable = NetworkService()) {
+    init(networkService: NetworkRequestable = NetworkService(),
+         storageServive: StorageService = StorageService()
+        ) {
         self.networkService = networkService
+        self.storageService = storageServive
     }
     
     /// Fetching Image
@@ -28,10 +34,14 @@ class ImageFetcher {
                 response(nil)
                 return
             }
-            let image = UIImage(data: data)
+            guard let image = UIImage(data: data) else {
+                print("Fetched data is not Image!")
+                response(nil)
+                return
+            }
             response(image)
         }
     }
-
+    
 }
 

@@ -12,6 +12,7 @@
 		B308F652228376CC006AA96B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B308F650228376CC006AA96B /* Main.storyboard */; };
 		B308F654228376CE006AA96B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B308F653228376CE006AA96B /* Assets.xcassets */; };
 		B308F657228376CE006AA96B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B308F655228376CE006AA96B /* LaunchScreen.storyboard */; };
+		B33DA70D23364EDA00E0DADA /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33DA70C23364EDA00E0DADA /* Array+Extensions.swift */; };
 		B3778BDB2335280400F75520 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3778BDA2335280400F75520 /* ImageFetcher.swift */; };
 		B37C1DAF228739B500C61342 /* Hide Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C1DAE228739B500C61342 /* Hide Views.swift */; };
 		B38A92B62334D362008EBAAE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38A92AF2334D362008EBAAE /* NetworkService.swift */; };
@@ -37,6 +38,7 @@
 		B308F653228376CE006AA96B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B308F656228376CE006AA96B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B308F658228376CE006AA96B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B33DA70C23364EDA00E0DADA /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Extensions.swift"; path = "../Array+Extensions.swift"; sourceTree = "<group>"; };
 		B3778BDA2335280400F75520 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 		B37C1DAE228739B500C61342 /* Hide Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hide Views.swift"; sourceTree = "<group>"; };
 		B38A92AF2334D362008EBAAE /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -89,8 +91,17 @@
 				B3CB183022846EDF0068A03F /* Controllers */,
 				B38A92AB2334D362008EBAAE /* Services */,
 				B3CB182F22846EB50068A03F /* Supporting FIles */,
+				B33DA70E23364EDF00E0DADA /* Helpers */,
 			);
 			path = "Personal Quiz";
+			sourceTree = "<group>";
+		};
+		B33DA70E23364EDF00E0DADA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B33DA70C23364EDA00E0DADA /* Array+Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B38A92AB2334D362008EBAAE /* Services */ = {
@@ -237,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B38A92B72334D362008EBAAE /* NetworkController.swift in Sources */,
+				B33DA70D23364EDA00E0DADA /* Array+Extensions.swift in Sources */,
 				B38A92B82334D362008EBAAE /* JSONDataFetcher.swift in Sources */,
 				B38A92B62334D362008EBAAE /* NetworkService.swift in Sources */,
 				B3778BDB2335280400F75520 /* ImageFetcher.swift in Sources */,

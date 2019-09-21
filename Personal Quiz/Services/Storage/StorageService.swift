@@ -10,14 +10,11 @@ import UIKit
 
 class StorageService: StorageManagable {
     
-    var imageCache: NSCache<NSString, UIImage>
-    
     private let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     private let dataArchiveURL: URL
     
     init() {
         dataArchiveURL = documentDirectory.appendingPathComponent("Data").appendingPathExtension("plist")
-        imageCache = NSCache<NSString, UIImage>()
     }
     
     func save<T:Codable>(data: T) {
@@ -30,15 +27,6 @@ class StorageService: StorageManagable {
         guard let data = try? Data(contentsOf: dataArchiveURL) else { return nil }
         let decoder = PropertyListDecoder()
         return try? decoder.decode(T.self, from: data)
-    }
-    
-    func cacheImage(image: UIImage, url: URL) {
-        imageCache.setObject(image, forKey: url.absoluteString as NSString)
-    }
-    
-    func getImageFromCache(with url: URL) -> UIImage? {
-        guard let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) else { return nil }
-        return imageFromCache
     }
     
 }

@@ -24,7 +24,9 @@ class NetworkController {
         self.imageFetcher = imageFetcher
     }
     
-     func makeURL() -> URL? {
+    let baseURL = "http:/localhost:8080"
+    
+     func makeApiURL() -> URL? {
         
         var components = URLComponents()
         components.scheme = "http"
@@ -35,36 +37,29 @@ class NetworkController {
         return components.url
     }
     
-//    private func makeHeaders() -> [String:String]? {
-//        var headers = [String:String]()
-//        headers["Authorization"] = "Client-ID d199ddd69d12752f8d8695e8685aab6ae3fb965e60a9697f70056b17bb7625e9"
-//        return headers
-//    }
-    
-    func getQuestions(completion: @escaping ([Question]?) -> Void) {
-        guard let baseUrl = makeURL() else { return }
+    func fetchQuestions(completion: @escaping ([Question]?) -> Void) {
+        guard let baseUrl = makeApiURL() else { return }
         let url = baseUrl.appendingPathComponent("questions")
         print(url)
         jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
     }
     
-    func getAnswers(completion: @escaping ([Answer]?) -> Void) {
-        guard let baseUrl = makeURL() else { return }
+    func fetchAnswers(completion: @escaping ([Answer]?) -> Void) {
+        guard let baseUrl = makeApiURL() else { return }
         let url = baseUrl.appendingPathComponent("answers")
         print(url)
         jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
     }
     
-    
-    func getTypes(completion: @escaping ([Type]?) -> Void) {
-        guard let baseUrl = makeURL() else { return }
+    func fetchTypes(completion: @escaping ([Type]?) -> Void) {
+        guard let baseUrl = makeApiURL() else { return }
         let url = baseUrl.appendingPathComponent("types")
         print(url)
         jsonDataFetcher.fetchJSONData(url: url, requestType: .get, headers: nil, response: completion)
     }
     
     func fetchImage(url: URL, completion: @escaping (UIImage?) -> Void) {
-        imageFetcher.fetchImage(url: url, response: completion)
+            imageFetcher.fetchImage(url: url, response: completion)
     }
     
 }

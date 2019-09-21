@@ -11,7 +11,6 @@ import UIKit
 class QuestionsViewController: UIViewController {
     //MARK: Stored Properties
     private var quiz = [Question]()
-    private var types: [Type]?
     private var currentQuestionIndex = 0
     private var userPoints = 0
     //Dependencies
@@ -37,8 +36,7 @@ class QuestionsViewController: UIViewController {
     //MARK: VC Life cycyle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        getQuizFromNetwork()
-       // showNextQuestion()
+        getQuiz()
     }
     
     
@@ -55,55 +53,17 @@ class QuestionsViewController: UIViewController {
     ///
     /// - Parameter sender: UIButton
     @IBAction func userTappedButtonToAnswer(_ sender: UIButton) {
-        
-        ///CALCULATE POINTS
-        let currentQuestion = quiz[currentQuestionIndex]
-        guard let currentQuestionType = currentQuestion.type else { return }
-        
-        switch currentQuestionType.name {
-        case "chooseOnlyOneRightAnswer":
-            for answer in currentQuestion.answers! {
-                if answer.text == sender.currentTitle {
-                    userPoints += answer.point
-                }
-            }
-        case "selectRightAnswers":
-            
-            ///define switchers
-            let subStackView = selectRightAnswersStackView.arrangedSubviews[1] as! UIStackView
-            
-            for index in 0..<subStackView.arrangedSubviews.count {
-                
-                let subViewObject = subStackView.arrangedSubviews[index] as! UIStackView
-                let switchLabel = subViewObject.arrangedSubviews[1] as! UISwitch
-                if currentQuestion.answers![index].point == 1 {
-                    if switchLabel.isOn {
-                        userPoints += 1
-                    }
-                }
-            }
-        case "slideToAnswer":
-            for answer in currentQuestion.answers! {
-                if labelOfSlider.text == answer.text {
-                    userPoints += answer.point
-                }
-            }
-            
-        case "tapImageToAnswer": break
-        default: break
-            
-        }
-        
-        currentQuestionIndex += 1
-        showNextQuestion()
+        showCurrentStackView(sender: sender)
     }
+    
 }
 
-// MARK: - Setup View and Logic
+// MARK: - Setup View
 extension QuestionsViewController {
-    /// Controls Labels and Answers
+    
     private func showNextQuestion() {
-
+        self.activityIndicatorView.stopAnimating()
+        //End of the Quiz
         guard currentQuestionIndex < quiz.count else {
             //Perform Segue in the end of quiz
             performSegue(withIdentifier: "ResultsSegue", sender: self)
@@ -117,8 +77,9 @@ extension QuestionsViewController {
         let currentQuestion = quiz[currentQuestionIndex]
         print(currentQuestion)
         
-         guard let currentQuestionType = currentQuestion.type else { return }
+        guard let currentQuestionType = currentQuestion.type else { return }
         
+        //Set Views
         switch currentQuestionType.name {
         case "chooseOnlyOneRightAnswer":
             //setup view in chooseOnlyOneRightAnswerStackView
@@ -183,7 +144,29 @@ extension QuestionsViewController {
                 //setup images to ImageViews
                 let imageView = imageStackView.arrangedSubviews[index] as! UIImageView
                 
-                imageView.image = UIImage(named: currentQuestion.answers![index].text)
+                //MARK: Fetch images
+                guard
+                    let url = currentQuestion.answers?[index].text,
+                    let imageUrl = URL(string: networkController.baseURL + url)
+                    else { return }
+                
+                networkController.fetchImage(url: imageUrl) { serverImage in
+                    guard let fetchedImage = serverImage else {
+                        self.activityIndicatorView.startAnimating()
+                        print("No image fetched ⁉️")
+                        return
+                    }
+                    
+                    if currentQuestion.answers![index].point == 1  {
+                        fetchedImage.accessibilityIdentifier = "1"
+                    }
+                    
+                    //update imageView
+                    DispatchQueue.main.async {
+                        imageView.image = fetchedImage
+                    }
+                }
+                
                 
                 // create tap gesture recognizer
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped(gesture:)))
@@ -207,6 +190,52 @@ extension QuestionsViewController {
             progressLabel.text = "Вопрос \(currentQuestionIndex + 1) из \(quiz.count)"
         }
     }
+    
+    
+    /// Controls Stack Views appearence
+    ///
+    /// - Parameter sender: UIButton
+    func showCurrentStackView(sender: UIButton) {
+        let currentQuestion = quiz[currentQuestionIndex]
+        guard let currentQuestionType = currentQuestion.type else { return }
+        
+        switch currentQuestionType.name {
+        case "chooseOnlyOneRightAnswer":
+            for answer in currentQuestion.answers! {
+                if answer.text == sender.currentTitle {
+                    userPoints += answer.point
+                }
+            }
+        case "selectRightAnswers":
+            
+            ///define switchers
+            let subStackView = selectRightAnswersStackView.arrangedSubviews[1] as! UIStackView
+            
+            for index in 0..<subStackView.arrangedSubviews.count {
+                
+                let subViewObject = subStackView.arrangedSubviews[index] as! UIStackView
+                let switchLabel = subViewObject.arrangedSubviews[1] as! UISwitch
+                if currentQuestion.answers![index].point == 1 {
+                    if switchLabel.isOn {
+                        userPoints += 1
+                    }
+                }
+            }
+        case "slideToAnswer":
+            for answer in currentQuestion.answers! {
+                if labelOfSlider.text == answer.text {
+                    userPoints += answer.point
+                }
+            }
+            
+        case "tapImageToAnswer": break
+        default: break
+            
+        }
+        
+        currentQuestionIndex += 1
+        showNextQuestion()
+    }
 }
 
 //MARK: - Image Tapping calculations
@@ -214,20 +243,21 @@ extension QuestionsViewController {
     
     @objc func imageTapped(gesture: UIGestureRecognizer) {
         
-        guard let image = gesture.view as? UIImageView else { return }
+        guard let imageView = gesture.view as? UIImageView else { return }
         //animate tap on image
-        image.alpha = 0.5
+        imageView.alpha = 0.5
         UIView.animate(withDuration: 0.5) {
-            image.alpha = 1.0
+            imageView.alpha = 1.0
             
         }
         
         //Calculate UserPoints
         let currentQuestion = quiz[currentQuestionIndex]
-       
+        print(imageView.tag)
         if currentQuestionIndex < quiz.count {
             for answer in currentQuestion.answers! {
-                if image.image == UIImage(named: answer.text) && answer.point == 1 {
+                if imageView.image?.accessibilityIdentifier == "1" && answer.point == 1 {
+                    print("right image")
                     userPoints += answer.point
                 }
             }
@@ -254,27 +284,36 @@ extension QuestionsViewController {
 
 //MARK: - Fetch Quiz Data From Network
 extension QuestionsViewController {
-    func getQuizFromNetwork() {
-        var quetionsWithTypes = [Question]()
+    func getQuiz() {
+        var questionsWithTypes = [Question]()
         //fetch questions
-        networkController.getQuestions { serverQuestions in
-            guard let fetchedQuestions = serverQuestions else { return }
+        networkController.fetchQuestions { serverQuestions in
+            guard let fetchedQuestions = serverQuestions else {
+                self.loadQuizFromStorage()
+                return
+            }
             //fetch types
-            self.networkController.getTypes { serverTypes in
-                guard let fetchedTypes = serverTypes else { return }
+            self.networkController.fetchTypes { serverTypes in
+                guard let fetchedTypes = serverTypes else {
+                    self.loadQuizFromStorage()
+                    return
+                }
                 //compare id's and add types to questions
                 for var question in fetchedQuestions {
                     fetchedTypes.forEach(){ type in
                         if question.typeId == type.id {
                             question.type = type
-                            quetionsWithTypes.append(question)
+                            questionsWithTypes.append(question)
                         }
                     }
                 }
                 //fetch answers
-                self.networkController.getAnswers { serverAnswers in
-                    guard let fetchedAnswers = serverAnswers else { return }
-                    for var question in quetionsWithTypes {
+                self.networkController.fetchAnswers { serverAnswers in
+                    guard let fetchedAnswers = serverAnswers else {
+                        self.loadQuizFromStorage()
+                        return
+                    }
+                    for var question in questionsWithTypes {
                         fetchedAnswers.forEach(){ answer in
                             if answer.questionId == question.id  {
                                 question.answers = fetchedAnswers.filter(){ $0.questionId == question.id }
@@ -283,13 +322,26 @@ extension QuestionsViewController {
                         }
                     }
                     //remove duplicates from Quiz
-                    self.quiz = Array(Set(self.quiz))
-                    
+                    self.quiz.removeDuplicates()
+                    //shuffled
+                    self.quiz.shuffle()
+                    //store Quiz
+                    self.storageController.saveQuestions(data: self.quiz)
                     //start Quiz
                     self.showNextQuestion()
                 }
             }
         }
+    }
+    
+    func loadQuizFromStorage() {
+        guard let offlineQuiz = storageController.loadQuestions() else {
+            self.activityIndicatorView.startAnimating()
+            return
+        }
+        quiz = offlineQuiz
+        print("Load cached Quiz")
+        showNextQuestion()
     }
 }
 

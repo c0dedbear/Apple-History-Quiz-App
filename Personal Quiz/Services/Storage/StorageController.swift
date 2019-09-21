@@ -15,20 +15,12 @@ class StorageController {
         self.storageService = storageService
     }
 
-    func saveQuestions(data: [Question:[Answer]]) {
+    func saveQuestions(data: [Question]) {
         storageService.save(data: data)
     }
     
-    func loadQuestions() -> [Question:[Answer]]? {
-        return storageService.load(model: [Question:[Answer]].self)
+    func loadQuestions() -> [Question]? {
+        return storageService.load(model: [Question].self)
     }
-    
-    func saveImageToCache(image: UIImage, url: URL) {
-        _ = storageService.cacheImage(image: image, url: url)
-    }
-    
-    func getImageFromCache(url: URL) -> UIImage? {
-        return storageService.getImageFromCache(with: url)
-    }
-    
+
 }
