@@ -14,6 +14,7 @@ class NetworkController {
     private let jsonDataSender: JSONDataSendable
     private let imageFetcher: ImageFetcher
     
+    
     init(
         jsonDataFetcher: JSONDataFetchable = JSONDataFetcher(),
         jsonDataSender: JSONDataSendable = JSONDataSender(),
@@ -62,4 +63,21 @@ class NetworkController {
             imageFetcher.fetchImage(url: url, response: completion)
     }
     
+    func uploadImage(url: URL, completion: @escaping ([String:Any]?, Error?) -> Void) {
+         struct Image: Codable {
+            let filename: String
+            let data: Data
+        }
+        
+        guard let imageData = #imageLiteral(resourceName: "quiz_icon").pngData() else {
+            completion(nil, nil)
+            return
+        }
+        
+        let quizImage = Image(filename: "quiz.png", data: imageData)
+        let quizImage1 = Image(filename: "quiz1.png", data: imageData)
+        let quizImage2 = Image(filename: "quiz2.png", data: imageData)
+        
+        jsonDataSender.sendJSONData(url: url, with: .post, headers: nil, using: [quizImage,quizImage1,quizImage2], response: completion)
+    }
 }

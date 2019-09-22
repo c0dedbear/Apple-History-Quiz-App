@@ -28,6 +28,6 @@ class ResultsViewController: UIViewController {
         }
     }
     
-    //TODO: Make network request for interpretate quiz results
+    //TODO: - Make network request for interpretate quiz results
 
 }

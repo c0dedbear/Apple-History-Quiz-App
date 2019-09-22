@@ -10,6 +10,7 @@ import UIKit
 
 //MARK: Hide StackViews
 extension QuestionsViewController {
+    
     func hideStackViews(in stackViews: [UIStackView?], except stackView: UIStackView) {
         
         for item in stackViews {
@@ -18,7 +19,6 @@ extension QuestionsViewController {
             } else {
                 item?.hideAnimated()
             }
-            
         }
     }
 }

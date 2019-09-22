@@ -13,5 +13,17 @@ struct Question: Codable, Hashable {
     var text: String
     var answers: [Answer]?
     var type: Type?
+    
+    static func defineMaxPossiblePoints(in quiz: [Question]) -> Int {
+        var points = 0
+        for question in quiz {
+            for answer in question.answers! {
+                if answer.point != 0 {
+                    points += answer.point
+                }
+            }
+        }
+        return points
+    }
 }
 
