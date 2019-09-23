@@ -37,6 +37,7 @@
 		B3F275F9233809B8007A4688 /* QuestionsVC+showCurrentStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F275F8233809B8007A4688 /* QuestionsVC+showCurrentStackView.swift */; };
 		B3F275FB23380D91007A4688 /* QuestionsViewController+fetchQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F275FA23380D91007A4688 /* QuestionsViewController+fetchQuiz.swift */; };
 		B3F275FD23380E23007A4688 /* QuestionsVC+loadQuizFromStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F275FC23380E23007A4688 /* QuestionsVC+loadQuizFromStorage.swift */; };
+		B3F275FF2338D333007A4688 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F275FE2338D333007A4688 /* Results.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		B3F275F8233809B8007A4688 /* QuestionsVC+showCurrentStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsVC+showCurrentStackView.swift"; sourceTree = "<group>"; };
 		B3F275FA23380D91007A4688 /* QuestionsViewController+fetchQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsViewController+fetchQuiz.swift"; sourceTree = "<group>"; };
 		B3F275FC23380E23007A4688 /* QuestionsVC+loadQuizFromStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsVC+loadQuizFromStorage.swift"; sourceTree = "<group>"; };
+		B3F275FE2338D333007A4688 /* Results.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				B3CB183122846EF20068A03F /* Models */,
-				B3CB183222846F140068A03F /* View */,
+				B3CB183222846F140068A03F /* Views */,
 				B3CB183022846EDF0068A03F /* Controllers */,
 				B38A92AB2334D362008EBAAE /* Services */,
 				B3CB182F22846EB50068A03F /* Supporting FIles */,
@@ -192,11 +194,12 @@
 				B3CB18332284789F0068A03F /* Question.swift */,
 				B3CB183722847D2A0068A03F /* Answer.swift */,
 				B3CB183522847CB60068A03F /* Type.swift */,
+				B3F275FE2338D333007A4688 /* Results.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		B3CB183222846F140068A03F /* View */ = {
+		B3CB183222846F140068A03F /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				B308F650228376CC006AA96B /* Main.storyboard */,
@@ -204,7 +207,7 @@
 				B37C1DAE228739B500C61342 /* QuestionsViewController+HideViews.swift */,
 				B3F275F62338090A007A4688 /* QuestionsViewController+ProgressBar.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B3F275F523380885007A4688 /* QuestionsViewController */ = {
@@ -300,6 +303,7 @@
 				B38A92BA2334D362008EBAAE /* StorageController.swift in Sources */,
 				B38A92C02334D78F008EBAAE /* StorageService.swift in Sources */,
 				B38A92B92334D362008EBAAE /* NetworkServiceProtocols.swift in Sources */,
+				B3F275FF2338D333007A4688 /* Results.swift in Sources */,
 				B308F64F228376CC006AA96B /* StartViewController.swift in Sources */,
 				B3889A1D2337802A00E52F93 /* AdminViewController.swift in Sources */,
 				B3CB183A228481010068A03F /* QuestionsViewController.swift in Sources */,

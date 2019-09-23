@@ -144,7 +144,10 @@ extension QuestionsViewController {
 extension QuestionsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let resultsVC = segue.destination as? ResultsViewController {
-            resultsVC.userPoints = (userPoints, Question.defineMaxPossiblePoints(in: quiz))
+            resultsVC.userPoints = UserPoints(
+                gained: userPoints,
+                maxPossiblePoints: Question.defineMaxPossiblePoints(in: quiz)
+            )
         }
     }
 }

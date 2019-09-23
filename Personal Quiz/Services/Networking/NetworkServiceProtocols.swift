@@ -18,6 +18,8 @@ protocol JSONDataFetchable {
 
 protocol JSONDataSendable {
     func sendJSONData<T: Codable>(url: URL, with requestType: RequestType, headers: [String:String]?, using model: T, response: @escaping ([String: Any]?, Error?) -> Void)
+
+//    func sendJSONDataWithModelAsResponse<T: Codable>(url: URL, with requestType: RequestType, headers: [String:String]?, using model: T, response: @escaping (Codable?) -> Void)
 }
 
 

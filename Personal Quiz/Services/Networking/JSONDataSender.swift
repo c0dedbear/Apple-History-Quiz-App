@@ -57,4 +57,27 @@ class JSONDataSender: JSONDataSendable {
         }
     }
     
+//    func sendJSONDataWithModelAsResponse<T: Codable>(url: URL, with requestType: RequestType, headers: [String:String]?, using model: T, response: @escaping (Codable?) -> Void) {
+//        guard let data = encodeJSONData(of: model) else {
+//            print(#file, #line, #function, "Failed to encode Model to Data")
+//            response(nil)
+//            return
+//        }
+//        //send request
+//        networkService.request(to: url, type: requestType, headers: nil, with: data){ data, error in
+//            //catch error
+//            if let error = error {
+//                response(nil)
+//                print(error)
+//                return
+//            }
+//            //fetch response data
+//            if let fetchedData = data {
+//                let decodedData = try? JSONSerialization.jsonObject(with: fetchedData, options: []) as? Codable
+//                response(decodedData)
+//            }
+//            
+//        }
+//    }
+    
 }

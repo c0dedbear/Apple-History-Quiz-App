@@ -20,7 +20,7 @@ class AdminViewController: UIViewController {
     
     @IBAction func uploadButton(_ sender: UIButton) {
         guard let url = URL(string: networkController.baseURL + "/public/images") else {
-            print("invalid url")
+            print(#line, #function, "invalid url")
             return
         }
         networkController.uploadImage(url: url) { response, error in

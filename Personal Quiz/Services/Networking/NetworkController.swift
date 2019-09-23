@@ -80,4 +80,12 @@ class NetworkController {
         
         jsonDataSender.sendJSONData(url: url, with: .post, headers: nil, using: [quizImage,quizImage1,quizImage2], response: completion)
     }
+    
+    func fetchResults(points: UserPoints, completion: @escaping ([String:Any]?, Error?) -> Void) {
+        guard let url = makeApiURL()?.appendingPathComponent("result") else {
+            completion(nil, nil)
+            return
+        }
+        jsonDataSender.sendJSONData(url: url, with: .post, headers: nil, using: points, response: completion)
+    }
 }
