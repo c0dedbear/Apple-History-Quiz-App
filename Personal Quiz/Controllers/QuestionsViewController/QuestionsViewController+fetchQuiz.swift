@@ -10,6 +10,7 @@ import Foundation
 //MARK: - Fetch Quiz
 extension QuestionsViewController {
     func fetchQuiz() {
+        //temporary array
         var questionsWithTypes = [Question]()
         //fetch questions
         networkController.fetchQuestions { serverQuestions in
@@ -23,7 +24,7 @@ extension QuestionsViewController {
                     self.loadQuizFromStorage()
                     return
                 }
-                //compare id's and add types to questions
+                //compare id's and add types to every question
                 for var question in fetchedQuestions {
                     fetchedTypes.forEach(){ type in
                         if question.typeId == type.id {
@@ -39,16 +40,19 @@ extension QuestionsViewController {
                         return
                     }
                     for var question in questionsWithTypes {
-                        fetchedAnswers.forEach(){ answer in
+                        for answer in fetchedAnswers {
                             if answer.questionId == question.id  {
                                 question.answers = fetchedAnswers.filter(){ $0.questionId == question.id }
                                 self.quiz.append(question)
+                                break
                             }
                         }
                     }
-                    //remove duplicates from Quiz
-                    self.quiz.removeDuplicates()
-                    //shuffled
+                    
+                    //empty temporary array
+                    questionsWithTypes.removeAll()
+                    
+                    //shuffled questions in quiz
                     self.quiz.shuffle()
                     //store Quiz
                     self.storageController.saveQuestions(data: self.quiz)

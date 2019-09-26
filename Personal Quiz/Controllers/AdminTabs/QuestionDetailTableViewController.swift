@@ -1,5 +1,5 @@
 //
-//  AdminAnswersViewController.swift
+//  QuestionDetailViewController.swift
 //  Personal Quiz
 //
 //  Created by Михаил Медведев on 22/09/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdminAnswersViewController: UITableViewController {
+class QuestionDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
